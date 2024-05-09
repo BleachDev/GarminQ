@@ -13,7 +13,7 @@ Want to know more about how it works?
 See also: [TagTime](https://tagtime.com), [Tagtime Web](https://ttw.smitop.com/), [Cactus Sampling Profiler](https://getcactus.app/), [Beeminder](https://www.beeminder.com/)
 
 <b>Thank You</b>  
-[Misha Yagudin](yagud.in) for commissioning the initial release of GarminQ!
+[Misha Yagudin](https://yagud.in) for commissioning the initial release of GarminQ!
 
 ## Images
 
