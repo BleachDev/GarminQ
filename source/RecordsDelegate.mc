@@ -77,9 +77,7 @@ class RecordsDeleteDelegate extends ConfirmationDelegate {
     }
 
     function onResponse(response) {
-        if (response == WatchUi.CONFIRM_NO) {
-            System.println("Cancel");
-        } else {
+        if (response == WatchUi.CONFIRM_YES) {
             RecordsView.ex[EX_RECORDS].remove(RecordsView.ex[EX_RECORDS][RecordsView.ex[EX_RECORDS].size() - RecordsView.selected]);
             data.saveExp();
             if (RecordsView.selected >= RecordsView.ex[EX_RECORDS].size()) {

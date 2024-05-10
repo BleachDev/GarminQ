@@ -13,21 +13,22 @@ class BackgroundDelegate extends ServiceDelegate {
     }
 
     function onTemporalEvent() as Void {
-        System.println("onTemporal");
+        System.println("onTemporalEvent");
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var bgData = [];
 
         for (var i = 0; i < data.bgExperiments.size(); i++) {
             var ex = data.bgExperiments[i];
-            var delta = normalVariate(ex[EX_RECORDS], ex[EX_GAP], ex[EX_GAP] / 8);
+            var curDelta = (Time.now().value() - ex[EX_BG_LAST_TRIGGER]) / 60;
+            var neededDelta = normalVariate(ex[EX_BG_LAST_TRIGGER], ex[EX_GAP], ex[EX_GAP] / 8);
 
-            System.println("Delta " + ex[EX_NAME] + " " + ((Time.now().value() - ex[EX_RECORDS]) / 60.0) + "/" + delta);
-            if ((Time.now().value() - ex[EX_RECORDS]) / 60 > delta) {
+            System.println("Delta " + curDelta + "/" + neededDelta);
+            if (curDelta > neededDelta) {
                 // Snooze if were outside the selected timeframe
                 if (ex[EX_START_H] > info.hour || ex[EX_END_H] < info.hour
                     || (ex[EX_DAYS] == 9 && info.day_of_week < 5) || (ex[EX_DAYS] == 8 && info.day_of_week > 4)
                     || (ex[EX_DAYS] > 0 && ex[EX_DAYS] < 8 && info.day_of_week == ex[EX_DAYS] - 1)) {
-                        ex[EX_RECORDS] = Time.now().value();
+                        ex[EX_BG_LAST_TRIGGER] = Time.now().value();
                         Storage.setValue("bgExperiments", data.bgExperiments);
                         System.println("Snooze " + ex[EX_NAME]);
                         continue;

@@ -11,6 +11,7 @@ var EX_START_H = 3;
 var EX_END_H = 4;
 var EX_DAYS = 5;
 var EX_RECORDS = 6;
+var EX_BG_LAST_TRIGGER = 6;
 
 var EX_INPUT_S = [ "1-5", "1-10", "Y/N" ] as Array<String>;
 var EX_INPUT_V = [ 5, 10, 2 ] as Array<Number>;
@@ -41,7 +42,7 @@ class Data {
     //   ]
     // ]
     public var experiments as Array<[String, Number, Number, Number, Number, Number, Array<[Number, Number, String, Number, Number]>]> = [];
-    // Copy of experiments but instead of Records, the 4th value is a timestamp of the last trigger
+    // Copy of experiments but instead of Records, the last value is a timestamp of the last trigger
     (:background)
     public var bgExperiments as Array<[String, Number, Number, Number, Number, Number, Number]> = [];
 

@@ -6,8 +6,6 @@ import Toybox.System;
 import Toybox.Time;
 import Toybox.WatchUi;
 
-public var VERSION = "1.0.0";
-
 (:background)
 public var data as Data?;
 
@@ -27,7 +25,6 @@ class App extends Application.AppBase {
         System.println("> start");
 
         if (Background.getTemporalEventRegisteredTime() == null) {
-            System.println("Register temprola");
             Background.registerForTemporalEvent(new Time.Duration(5 * 60));
         }
     }
