@@ -28,7 +28,7 @@ class RecordsView extends View {
         drawHeader(dc, W, H, ex[EX_NAME]);
 
         var re = ex[EX_RECORDS];
-        for (var i = offset; i <= re.size(); i++) {
+        for (var i = offset; i <= offset + 6 && i <= re.size(); i++) {
             var h = H / 4 + (H / 4.8) * (i - offset);
             if (i == selected) {
                 dc.setColor(0x3A3791, Graphics.COLOR_TRANSPARENT);

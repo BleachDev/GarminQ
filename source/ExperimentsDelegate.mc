@@ -47,7 +47,7 @@ class ExperimentsDelegate extends BehaviorDelegate {
             var menu = new Menu();
             menu.setTitle(data.experiments[ExperimentsView.selected][EX_NAME]);
             menu.addItem("View Records", :view);
-            menu.addItem("Modify", :modify);
+            menu.addItem("Edit", :edit);
             menu.addItem("Delete", :delete);
             WatchUi.pushView(menu, new ExperimentsEditDelegate(), WatchUi.SLIDE_LEFT);
         }
@@ -71,7 +71,7 @@ class ExperimentsEditDelegate extends MenuInputDelegate {
                 new RecordsDelegate(),
                 WatchUi.SLIDE_LEFT
             );
-        } else if (item == :modify) {
+        } else if (item == :edit) {
             WatchUi.pushView(
                 new AddView(ExperimentsView.selected),
                 new AddDelegate(),

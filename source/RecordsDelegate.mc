@@ -38,8 +38,8 @@ class RecordsDelegate extends BehaviorDelegate {
         } else {
             // Edit Record
             var menu = new Menu();
-            menu.setTitle("Edit Record");
-            menu.addItem("Modify", :modify);
+            menu.setTitle("Modify Record");
+            menu.addItem("Set Value", :edit);
             menu.addItem("Delete", :delete);
             WatchUi.pushView(menu, new RecordsMenuDelegate(), WatchUi.SLIDE_LEFT);
         }
@@ -57,7 +57,7 @@ class RecordsMenuDelegate extends MenuInputDelegate {
     function onMenuItem(item) {
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
 
-        if (item == :modify) {
+        if (item == :edit) {
             WatchUi.pushView(new NotificationView(RecordsView.ex, RecordsView.ex[EX_RECORDS].size() - RecordsView.selected), new NotificationDelegate(), WatchUi.SLIDE_LEFT);
         } else if (item == :delete) {
             WatchUi.pushView(

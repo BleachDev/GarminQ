@@ -22,7 +22,7 @@ class ExperimentsView extends View {
 
         drawHeader(dc, W, H, "Experiments");
 
-        for (var i = offset; i <= data.experiments.size(); i++) {
+        for (var i = offset; i <= offset + 6 && i <= data.experiments.size(); i++) {
             var h = H / 4 + (H / 4.8) * (i - offset);
             if (i == selected) {
                 dc.setColor(0x1E46A0, Graphics.COLOR_TRANSPARENT);
