@@ -39,6 +39,7 @@ class ExperimentsDelegate extends BehaviorDelegate {
             var menu = new Menu();
             menu.setTitle("Experiments");
             menu.addItem("+ Add Experiment", :add);
+            menu.addItem("- Purge Records", :purge);
             menu.addItem("Stats: " + (data.statsMode == 0 ? "Records" : data.statsMode == 1 ? "7 Day Avg" : "1 Day Avg"), :glance);
             menu.addItem("Export", :export);
             WatchUi.pushView(menu, new ExperimentsAddDelegate(), WatchUi.SLIDE_LEFT);
@@ -118,6 +119,9 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
         if (item == :add) {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             WatchUi.pushView(new AddView(-1), new AddDelegate(), WatchUi.SLIDE_LEFT);
+        } else if (item == :purge) {
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            WatchUi.pushView(new PurgeView(), new PurgeDelegate(), WatchUi.SLIDE_LEFT);
         } else if (item == :glance) {
             data.statsMode = (data.statsMode + 1) % 3;
             Storage.setValue("statsMode", data.statsMode);

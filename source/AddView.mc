@@ -51,6 +51,6 @@ class AddView extends View {
         drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-", Graphics.FONT_MEDIUM), H / 4 + hs * 3, endH.format("%02d"), selected == 4, Graphics.FONT_MEDIUM);
         drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-00 ", Graphics.FONT_MEDIUM), H / 4 + hs * 3, EX_DAYS_S[days], selected == 5, Graphics.FONT_MEDIUM);
 
-        drawValue(dc, W / 2.7, H * 0.82, "SAVE", selected == 6, Graphics.FONT_SMALL);
+        drawValue(dc, W / 2.65, H * 0.82, "SAVE", selected == 6, Graphics.FONT_SMALL);
     }
 }

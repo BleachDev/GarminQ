@@ -34,7 +34,7 @@ class ExperimentsView extends View {
 
             if (i == data.experiments.size()) {
                 dc.drawText(W / 10, h, Graphics.FONT_TINY, "+ Add Experiment", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(W / 9, h + TINY_H, Graphics.FONT_XTINY, "Add / Options / Exporting", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(W / 9, h + TINY_H, Graphics.FONT_XTINY, "Purge / Options / Export", Graphics.TEXT_JUSTIFY_LEFT);
                 continue;
             }
 

@@ -46,6 +46,6 @@ class NotificationView extends View {
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.fillCircle(W / 8 + (W - W / 4) * (value / countf), H / 2, W / 30);
 
-        drawValue(dc, W / 2.7, H * 0.82, "SAVE", done, Graphics.FONT_SMALL);
+        drawValue(dc, W / 2.65, H * 0.82, "SAVE", done, Graphics.FONT_SMALL);
     }
 }
