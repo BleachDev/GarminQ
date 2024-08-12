@@ -74,5 +74,6 @@ class Data {
             bgExperiments.add([ ex[0], ex[1], ex[2], ex[3], ex[4], ex[5], re.size() == 0 ? 0 : re[re.size() - 1][RE_TIME] ]);
         }
         Storage.setValue("bgExperiments", bgExperiments);
+        Background.registerForTemporalEvent(new Duration(5 * 60));
     }
 }

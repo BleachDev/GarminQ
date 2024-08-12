@@ -21,11 +21,13 @@ class App extends Application.AppBase {
     // onStart() is called on application start up
     function onStart(state as Dictionary?) as Void {
         data = new Data();
+        // Trying to figure out what my own code does challenge (hard)
+        // Clear stored bgData, if we have pending bgData it will be loaded AFTER onStart by onBackgroundData
         bgData = [];
         System.println("> start");
 
         if (Background.getTemporalEventRegisteredTime() == null) {
-            Background.registerForTemporalEvent(new Time.Duration(5 * 60));
+            Background.registerForTemporalEvent(new Duration(5 * 60));
         }
     }
 
