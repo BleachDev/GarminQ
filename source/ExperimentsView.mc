@@ -20,15 +20,15 @@ class ExperimentsView extends View {
         var H = dc.getHeight();
         var TINY_H = dc.getFontHeight(Graphics.FONT_TINY) * 0.9;
 
-        drawHeader(dc, W, H, "Experiments");
+        drawHeader(dc, W, H, INSTINCT_MODE ? "Exps." : "Experiments");
 
         for (var i = offset; i <= offset + 6 && i <= data.experiments.size(); i++) {
-            var h = H / 4 + (H / 4.8) * (i - offset);
+            var h = H / 4 + (TINY_H * 2.2) * (i - offset);
             if (i == selected) {
                 dc.setColor(0x1E46A0, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(W / 15, h, W - W / 7.5, H / 5.4);
-                dc.setColor(0x102550, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(W / 15, h, W / 50, H / 5.4);
+                dc.fillRectangle(W / 15, h, W - W / 7.5, TINY_H * 2.2);
+                dc.setColor(INSTINCT_MODE ? 0xFFFFFF : 0x102550, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(W / 15, h, W / 50, TINY_H * 2.2);
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             }
 
@@ -46,7 +46,7 @@ class ExperimentsView extends View {
                         ex[EX_START_H].format("%02d") + "-" + ex[EX_END_H].format("%02d") + " " + EX_DAYS_S[ex[EX_DAYS]], Graphics.TEXT_JUSTIFY_LEFT);
 
             var stat1 = days + " Day" + (days == 1 ? "" : "s");
-            var stat2 = re.size() + " Record" + (re.size() == 1 ? "" : "s");
+            var stat2 = re.size() + (INSTINCT_MODE ? " Rec" : " Record") + (re.size() == 1 ? "" : "s");
             if (data.statsMode > 0) {
                 var minuteAvg = 1440 * (data.statsMode == 1 ? 7 : 1);
                 var sum1 = 0.0;
@@ -72,8 +72,13 @@ class ExperimentsView extends View {
                 stat2 = ((sum1 / (sum2 == 0.0 ? sum1 == 0.0 ? 1.0 : sum1 : sum2)) * 100 - 100).format("%+.1f") + "%";
             }
 
-            dc.drawText(W - W / 10, h, Graphics.FONT_TINY, stat1, Graphics.TEXT_JUSTIFY_RIGHT);
-            dc.drawText(W - W / 10, h + TINY_H, Graphics.FONT_XTINY, stat2, Graphics.TEXT_JUSTIFY_RIGHT);
+            if (i == offset && INSTINCT_MODE) {
+                dc.drawText(W - W / 5.5, H / 19, Graphics.FONT_TINY, stat1, Graphics.TEXT_JUSTIFY_CENTER);
+                dc.drawText(W - W / 5.5, H / 19 + TINY_H, Graphics.FONT_XTINY, stat2, Graphics.TEXT_JUSTIFY_CENTER);
+            } else { 
+                dc.drawText(W - W / 10, h, Graphics.FONT_TINY, stat1, Graphics.TEXT_JUSTIFY_RIGHT);
+                dc.drawText(W - W / 10, h + TINY_H, Graphics.FONT_XTINY, stat2, Graphics.TEXT_JUSTIFY_RIGHT);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ Data can be easily exported from your watch to any device to be used for visuali
 
 
 Want to know more about how it works?   
-See also: [TagTime](https://tagtime.com), [Tagtime Web](https://ttw.smitop.com/), [Cactus Sampling Profiler](https://getcactus.app/), [Beeminder](https://www.beeminder.com/)
+Then take a look at [TagTime](https://tagtime.com), [Tagtime Web](https://ttw.smitop.com/), [Cactus Sampling Profiler](https://getcactus.app/), [Beeminder](https://www.beeminder.com/)
 
 <b>Thank You</b>  
 [Misha Yagudin](https://yagud.in) for commissioning the initial release of GarminQ!

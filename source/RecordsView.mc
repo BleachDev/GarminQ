@@ -29,12 +29,12 @@ class RecordsView extends View {
 
         var re = ex[EX_RECORDS];
         for (var i = offset; i <= offset + 6 && i <= re.size(); i++) {
-            var h = H / 4 + (H / 4.8) * (i - offset);
+            var h = H / 4 + (TINY_H * 2.2) * (i - offset);
             if (i == selected) {
                 dc.setColor(0x3A3791, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(W / 15, h, W - W / 7.5, H / 5.4);
-                dc.setColor(0x282663, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(W / 15, h, W / 50, H / 5.4);
+                dc.fillRectangle(W / 15, h, W - W / 7.5, TINY_H * 2.2);
+                dc.setColor(INSTINCT_MODE ? 0xFFFFFF : 0x282663, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(W / 15, h, W / 50, TINY_H * 2.2);
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             }
 

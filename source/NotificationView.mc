@@ -34,11 +34,13 @@ class NotificationView extends View {
 
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(W / 8 - W / 40, H / 2 - H / 60, (W - W / 4) * (value / countf), H / 30, W / 60);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-
+        
         for (var i = 0; i < count; i++) {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             dc.drawText(W / 8 + (W - W / 4) * (i / countf), H / 2 + H / 30, Graphics.FONT_SMALL,
                         count == 2 ? (i == 0 ? "No" : "Yes") : i + 1, Graphics.TEXT_JUSTIFY_CENTER);
+
+            dc.setColor(INSTINCT_MODE ? Graphics.COLOR_BLACK : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(W / 8 + (W - W / 4) * (i / countf), H / 2 - H / 60, W / 60, H / 30);
         }
 

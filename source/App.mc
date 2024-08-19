@@ -9,6 +9,8 @@ import Toybox.WatchUi;
 (:background)
 public var data as Data?;
 
+public var INSTINCT_MODE as Boolean = false; // Whether Instinct circle is present
+
 (:background)
 class App extends Application.AppBase {
 
@@ -33,6 +35,8 @@ class App extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [ WatchUi.Views ] or [ WatchUi.Views, WatchUi.InputDelegates ] {
+        INSTINCT_MODE = "1".equals(WatchUi.loadResource(Rez.Strings.INSTINCT_MODE));
+        
         data.load();
         System.println("> initalview " + bgData);
 
@@ -54,7 +58,7 @@ class App extends Application.AppBase {
 function drawHeader(dc as Graphics.Dc, W as Number, H as Number, text as String) {
     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
     var font = text.length() > 16 ? Graphics.FONT_XTINY : text.length() > 13 ? Graphics.FONT_TINY : text.length() > 10 ? Graphics.FONT_SMALL : Graphics.FONT_MEDIUM;
-    dc.drawText(W / 2, H / 5.1 - dc.getFontHeight(font), font, text, Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(W / (INSTINCT_MODE ? 3 : 2), H / 5.1 - dc.getFontHeight(font), font, text, Graphics.TEXT_JUSTIFY_CENTER);
 }
 
 function drawValue(dc as Graphics.Dc, x as Float or Number, y as Float or Number, text as String, selected as Boolean, font as FontDefinition) {
