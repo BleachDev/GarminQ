@@ -15,25 +15,16 @@ class BackgroundDelegate extends ServiceDelegate {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var bgData = [];
 
-        var minTime = 100000;
         for (var i = 0; i < data.bgExperiments.size(); i++) {
-            var timeUntil = timeUntilTrigger(data.bgExperiments[i]);
-            System.println("Time " + i + " " + timeUntil);
-            if (timeUntil == 0) {
+            if (timeUntilTrigger(data.bgExperiments[i]) == 0) {
                 bgData.add(i);
-            }
-            if (timeUntil < minTime) {
-                minTime = timeUntil < 5 ? 5 : timeUntil;
             }
         }
 
         if (bgData.size() > 0) {
             Background.requestApplicationWake("ESM Question Available!");
             Background.exit(bgData);
-            // ding ding ding wake up! we won't stop pinging you!
             Background.registerForTemporalEvent(new Duration(5 * 60));
-        } else {
-            Background.registerForTemporalEvent(new Duration(minTime * 60));
         }
     }
 
@@ -55,7 +46,8 @@ class BackgroundDelegate extends ServiceDelegate {
         // Add days to snooze if we have selected a specific day to trigger
         if (ex[EX_DAYS] > 0) {
             if (ex[EX_DAYS] < 8 && day_of_week != ex[EX_DAYS]
-            || (ex[EX_DAYS] == 9 && info.day_of_week < 5) || (ex[EX_DAYS] == 8 && info.day_of_week > 4)) {
+            || (ex[EX_DAYS] == 9 && info.day_of_week < 5)
+            || (ex[EX_DAYS] == 8 && info.day_of_week > 4)) {
                 var nextDay = ex[EX_DAYS] < 8 ? ex[EX_DAYS] : ex[EX_DAYS] == 8 ? 0 : 5;
                 snoozeDelta += ((nextDay + 7 - day_of_week) % 7 - 1) * 86400;
             }
