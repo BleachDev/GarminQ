@@ -22,7 +22,7 @@ class BackgroundDelegate extends ServiceDelegate {
         }
 
         if (bgData.size() > 0) {
-            Background.requestApplicationWake("ESM Question Available!");
+            Background.requestApplicationWake("GarminQ - Question Available!");
             Background.exit(bgData);
             Background.registerForTemporalEvent(new Duration(5 * 60));
         }
@@ -31,6 +31,8 @@ class BackgroundDelegate extends ServiceDelegate {
     function timeUntilTrigger(ex) {
         var now = Time.now().value();
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        // Georgian day_of_week: (Sun = 1, Mon = 2, Tue = 3..)
+        // Our day_of_week: (Mon = 0, Tue = 1, Wed = 2..)
         var day_of_week = info.day_of_week == 0 ? 6 : info.day_of_week - 2;
 
         // In minutes
@@ -46,8 +48,8 @@ class BackgroundDelegate extends ServiceDelegate {
         // Add days to snooze if we have selected a specific day to trigger
         if (ex[EX_DAYS] > 0) {
             if (ex[EX_DAYS] < 8 && day_of_week != ex[EX_DAYS]
-            || (ex[EX_DAYS] == 9 && info.day_of_week < 5)
-            || (ex[EX_DAYS] == 8 && info.day_of_week > 4)) {
+            || (ex[EX_DAYS] == 9 && day_of_week < 5)
+            || (ex[EX_DAYS] == 8 && day_of_week > 4)) {
                 var nextDay = ex[EX_DAYS] < 8 ? ex[EX_DAYS] : ex[EX_DAYS] == 8 ? 0 : 5;
                 snoozeDelta += ((nextDay + 7 - day_of_week) % 7 - 1) * 86400;
             }
