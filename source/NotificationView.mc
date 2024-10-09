@@ -5,7 +5,7 @@ import Toybox.Lang;
 
 class NotificationView extends View {
 
-    public static var ex;
+    public static var ex as Experiment;
     public static var value = 0;
     public static var modifying = -1; // Index we're modifing or -1 to add a record
     public static var done = false;

@@ -12,7 +12,6 @@ class BackgroundDelegate extends ServiceDelegate {
 
     function onTemporalEvent() as Void {
         System.println("onTemporalEvent");
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var bgData = [];
 
         for (var i = 0; i < data.bgExperiments.size(); i++) {
@@ -28,7 +27,7 @@ class BackgroundDelegate extends ServiceDelegate {
         }
     }
 
-    function timeUntilTrigger(ex) {
+    function timeUntilTrigger(bgEx as BgExperiment) {
         var now = Time.now().value();
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         // Georgian day_of_week: (Sun = 1, Mon = 2, Tue = 3..)
@@ -36,21 +35,21 @@ class BackgroundDelegate extends ServiceDelegate {
         var day_of_week = info.day_of_week == 0 ? 6 : info.day_of_week - 2;
 
         // In minutes
-        var curDelta = (now - ex[EX_BG_LAST_TRIGGER]) / 60;
-        var neededDelta = expoVariate(ex[EX_BG_LAST_TRIGGER], 1.0 / ex[EX_GAP]);
+        var curDelta = (now - bgEx[EX_BG_LAST_TRIGGER]) / 60;
+        var neededDelta = expoVariate(bgEx[EX_BG_LAST_TRIGGER], 1.0 / bgEx[EX_GAP]);
         var snoozeDelta = 0;
 
         // Add hour + minutes to snooze if we're outside the selected hours
-        if (ex[EX_START_H] > info.hour || ex[EX_END_H] < info.hour) {
-            snoozeDelta += (60 - info.min) + ((ex[EX_START_H] + 24 - info.hour) % 24 - 1) * 60;
+        if (bgEx[EX_START_H] > info.hour || bgEx[EX_END_H] < info.hour) {
+            snoozeDelta += (60 - info.min) + ((bgEx[EX_START_H] + 24 - info.hour) % 24 - 1) * 60;
         }
 
         // Add days to snooze if we have selected a specific day to trigger
-        if (ex[EX_DAYS] > 0) {
-            if (ex[EX_DAYS] < 8 && day_of_week != ex[EX_DAYS]
-            || (ex[EX_DAYS] == 9 && day_of_week < 5)
-            || (ex[EX_DAYS] == 8 && day_of_week > 4)) {
-                var nextDay = ex[EX_DAYS] < 8 ? ex[EX_DAYS] : ex[EX_DAYS] == 8 ? 0 : 5;
+        if (bgEx[EX_DAYS] > 0) {
+            if (bgEx[EX_DAYS] < 8 && day_of_week != bgEx[EX_DAYS]
+            || (bgEx[EX_DAYS] == 9 && day_of_week < 5)
+            || (bgEx[EX_DAYS] == 8 && day_of_week > 4)) {
+                var nextDay = bgEx[EX_DAYS] < 8 ? bgEx[EX_DAYS] : bgEx[EX_DAYS] == 8 ? 0 : 5;
                 snoozeDelta += ((nextDay + 7 - day_of_week) % 7 - 1) * 86400;
             }
         }

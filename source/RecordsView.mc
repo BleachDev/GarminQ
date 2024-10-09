@@ -6,7 +6,7 @@ import Toybox.Time;
 
 class RecordsView extends View {
 
-    public static var ex;
+    public static var ex as Experiment;
     public static var offset = 0;
     public static var selected = 0;
 
@@ -27,8 +27,8 @@ class RecordsView extends View {
 
         drawHeader(dc, W, H, ex[EX_NAME]);
 
-        var re = ex[EX_RECORDS];
-        for (var i = offset; i <= offset + 6 && i <= re.size(); i++) {
+        var records = ex[EX_RECORDS] as Array<Record>;
+        for (var i = offset; i <= offset + 6 && i <= records.size(); i++) {
             var h = H / 4 + (TINY_H * 2.2) * (i - offset);
             if (i == selected) {
                 dc.setColor(0x3A3791, Graphics.COLOR_TRANSPARENT);
@@ -43,12 +43,12 @@ class RecordsView extends View {
                 continue;
             }
 
-            var entry = re[re.size() - i];
-            var time = Time.Gregorian.info(new Moment(entry[RE_TIME]), Time.FORMAT_MEDIUM);
+            var re = records[records.size() - i];
+            var time = Time.Gregorian.info(new Moment(re[RE_TIME]), Time.FORMAT_MEDIUM);
             dc.drawText(W / 10, h, Graphics.FONT_TINY, time.month + " " + time.day + " " + time.year, Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(W / 9, h + TINY_H, Graphics.FONT_XTINY, time.hour.format("%02d") + ":" + time.min.format("%02d") + ":" + time.sec.format("%02d"), Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(W - W / 10, h, Graphics.FONT_TINY,
-                        ex[EX_INPUT] == 2 ? (entry[RE_VALUE] == 0 ? "No" : "Yes") : entry[RE_VALUE] + 1, Graphics.TEXT_JUSTIFY_RIGHT);
+                        ex[EX_INPUT] == 2 ? (re[RE_VALUE] == 0 ? "No" : "Yes") : re[RE_VALUE] + 1, Graphics.TEXT_JUSTIFY_RIGHT);
         }
     }
 }

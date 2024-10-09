@@ -39,7 +39,7 @@ class ExperimentsView extends View {
             }
 
             var ex = data.experiments[i];
-            var re = ex[EX_RECORDS];
+            var re = ex[EX_RECORDS] as Array<Record>;
             var days = (re.size() == 0 ? 0 : re[re.size() - 1][RE_TIME] - re[0][RE_TIME]) / 86400;
             dc.drawText(W / 10, h, Graphics.FONT_TINY, ex[EX_NAME], Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(W / 9.5, h + TINY_H, Graphics.FONT_XTINY,

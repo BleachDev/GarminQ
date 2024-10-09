@@ -139,6 +139,7 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
                     "days" => ex[EX_DAYS],
                     "records" => []
                 };
+
                 for (var r = 0; r < ex[EX_RECORDS].size(); r++) {
                     var re = ex[EX_RECORDS][r];
                     export[ex[EX_NAME]]["records"].add({

@@ -6,7 +6,7 @@ import Toybox.Time;
 
 class PurgeView extends View {
 
-    private static var MONTHS = [ null, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    private static var MONTHS as Array<String?> = [ null, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
     public static var selected;
     public static var day;
     public static var month;
@@ -52,7 +52,7 @@ class PurgeView extends View {
 
         var count = 0;
         for (var i = 0; i < data.experiments.size(); i++) {
-            var records = data.experiments[i][EX_RECORDS];
+            var records = data.experiments[i][EX_RECORDS] as Array<Record>;
             for (var r = 0; r < records.size(); r++) {
                 if (records[r][RE_TIME] < timeMs) {
                     if (remove) {

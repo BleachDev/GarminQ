@@ -3,7 +3,7 @@ import Toybox.WatchUi;
 
 class AddDelegate extends BehaviorDelegate {
 
-    private static var GAP_OPTIONS = [ 10, 20, 30, 45, 60, 90, 120, 180, 300, 1440 ] as Array<Number>;
+    private static var GAP_OPTIONS as Array<Number> = [ 10, 20, 30, 45, 60, 90, 120, 180, 300, 1440 ];
 
     function initialize() {
         BehaviorDelegate.initialize();

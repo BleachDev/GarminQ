@@ -4,6 +4,10 @@ import Toybox.Time;
 
 // object oriented programming? whats that?
 // surely this won't have scalability issues..
+typedef Experiment as [String, Number, Number, Number, Number, Number, Array<Record>];
+typedef BgExperiment as [String, Number, Number, Number, Number, Number, Number];
+typedef Record as [Number, Number, String, Number, Number];
+
 var EX_NAME = 0;
 var EX_INPUT = 1;
 var EX_GAP = 2;
@@ -13,9 +17,9 @@ var EX_DAYS = 5;
 var EX_RECORDS = 6;
 var EX_BG_LAST_TRIGGER = 6;
 
-var EX_INPUT_S = [ "1-5", "1-10", "Y/N" ] as Array<String>;
-var EX_INPUT_V = [ 5, 10, 2 ] as Array<Number>;
-var EX_DAYS_S = [ "All", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "M-F", "S-S" ] as Array<String>;
+var EX_INPUT_S as Array<String> = [ "1-5", "1-10", "Y/N" ];
+var EX_INPUT_V as Array<Number> = [ 5, 10, 2 ];
+var EX_DAYS_S as Array<String> = [ "All", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "M-F", "S-S" ];
 
 var RE_TIME = 0;
 var RE_VALUE = 1;
@@ -41,10 +45,10 @@ class Data {
     //     ]
     //   ]
     // ]
-    public var experiments as Array<[String, Number, Number, Number, Number, Number, Array<[Number, Number, String, Number, Number]>]> = [];
+    public var experiments as Array<Experiment> = [];
     // Copy of experiments but instead of Records, the last value is a timestamp of the last trigger
     (:background)
-    public var bgExperiments as Array<[String, Number, Number, Number, Number, Number, Number]> = [];
+    public var bgExperiments as Array<BgExperiment> = [];
 
     public var statsMode as Number = 0;
 
@@ -65,15 +69,15 @@ class Data {
     }
 
     function saveExp() {
-        Storage.setValue("experiments", experiments);
+        Storage.setValue("experiments", experiments as Array);
 
         bgExperiments = [];
         for (var i = 0; i < experiments.size(); i++) {
-            var ex = experiments[i];
-            var re = ex[EX_RECORDS];
+            var ex = experiments[i] as Experiment;
+            var re = ex[EX_RECORDS] as Array<Record>;
             bgExperiments.add([ ex[0], ex[1], ex[2], ex[3], ex[4], ex[5], re.size() == 0 ? 0 : re[re.size() - 1][RE_TIME] ]);
         }
-        Storage.setValue("bgExperiments", bgExperiments);
+        Storage.setValue("bgExperiments", bgExperiments as Array);
         Background.registerForTemporalEvent(new Duration(5 * 60));
     }
 }
