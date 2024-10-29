@@ -40,8 +40,8 @@ class ExperimentsDelegate extends BehaviorDelegate {
             menu.setTitle("Experiments");
             menu.addItem("+ Add Experiment", :add);
             menu.addItem("- Purge Records", :purge);
-            menu.addItem("Stats: " + (data.statsMode == 0 ? "Records" : data.statsMode == 1 ? "7 Day Avg" : "1 Day Avg"), :glance);
-            menu.addItem("Export", :export);
+            menu.addItem("* Options", :options);
+            menu.addItem("> Export", :export);
             WatchUi.pushView(menu, new ExperimentsAddDelegate(), WatchUi.SLIDE_LEFT);
         } else {
             // Edit Experiment
@@ -122,9 +122,9 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
         } else if (item == :purge) {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             WatchUi.pushView(new PurgeView(), new PurgeDelegate(), WatchUi.SLIDE_LEFT);
-        } else if (item == :glance) {
-            data.statsMode = (data.statsMode + 1) % 3;
-            Storage.setValue("statsMode", data.statsMode);
+        } else if (item == :options) {
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            WatchUi.pushView(new OptionsView(), new OptionsDelegate(), WatchUi.SLIDE_LEFT);
         } else if (item == :export) {
             System.println("Begin Export");
             var export = {};
