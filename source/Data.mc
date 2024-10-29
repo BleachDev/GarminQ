@@ -2,11 +2,11 @@ import Toybox.Lang;
 import Toybox.Application;
 import Toybox.Time;
 
-// object oriented programming? whats that?
+// object oriented programming? data structures? whats that?
 // surely this won't have scalability issues..
 typedef Experiment as [String, Number, Number, Number, Number, Number, Array<Record>];
 typedef BgExperiment as [String, Number, Number, Number, Number, Number, Number];
-typedef Record as [Number, Number, String, Number, Number];
+typedef Record as [Number, Number, String, Number, Number, Number];
 
 var EX_NAME = 0;
 var EX_INPUT = 1;
@@ -26,6 +26,7 @@ var RE_VALUE = 1;
 var RE_ACTIVITY = 2;
 var RE_HR = 3;
 var RE_BATTERY = 4;
+var RE_STRESS = 5;
 class Data {
 
     // experiments = [
@@ -41,7 +42,8 @@ class Data {
     //       Value
     //       Activity Type (See: https://developer.garmin.com/connect-iq/api-docs/Toybox/Activity.html, Sport Enum)
     //       Heart Rate
-    //       Body Battery
+    //       Body Battery (null If Unsupported)
+    //       Stress (null If Unsupported)
     //     ]
     //   ]
     // ]
@@ -54,7 +56,17 @@ class Data {
 
     function load() {
         if (Storage.getValue("experiments") != null) {
-            experiments = Storage.getValue("experiments") as Array<[String, Number, Number, Number, Number, Number, Array<[Number, Number, String, Number, Number]>]>;
+            experiments = Storage.getValue("experiments") as Array<Experiment>;
+
+            // Fix for when updating, if we don't have all stats on all records, fill with null
+            for (var i = 0; i < experiments.size(); i++) {
+                var re = experiments[i][EX_RECORDS] as Array<Record>;
+                for (var r = 0; r < re.size(); r++) {
+                    while (re[r].size() < 6) {
+                        re[r].add(null);
+                    }
+                }
+            }
         }
         if (Storage.getValue("statsMode") != null) {
             statsMode = Storage.getValue("statsMode");

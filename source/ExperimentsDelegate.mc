@@ -147,7 +147,8 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
                         "value" => re[RE_VALUE],
                         "activity" => re[RE_ACTIVITY],
                         "heartrate" => re[RE_HR],
-                        "bodybattery" => re[RE_BATTERY]
+                        "bodybattery" => re[RE_BATTERY],
+                        "stress" => re[RE_STRESS]
                     });
                 }
             }
