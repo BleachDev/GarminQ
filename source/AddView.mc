@@ -34,22 +34,28 @@ class AddView extends View {
         var H = dc.getHeight();
         //var TINY_H = dc.getFontHeight(Graphics.FONT_TINY) * 0.9;
 
+        var manual = gap == 2147483647;
+
         drawHeader(dc, W, H, "Add Exp.");
 
         var hs = H / 8;
         dc.drawText(W / 2.7, H / 4, Graphics.FONT_MEDIUM, "Title:", Graphics.TEXT_JUSTIFY_RIGHT);
         dc.drawText(W / 2.7, H / 4 + hs, Graphics.FONT_MEDIUM, "Input:", Graphics.TEXT_JUSTIFY_RIGHT);
         dc.drawText(W / 2.7, H / 4 + hs * 2, Graphics.FONT_MEDIUM, "Gap:", Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(W / 2.7, H / 4 + hs * 3, Graphics.FONT_MEDIUM, "Hours:", Graphics.TEXT_JUSTIFY_RIGHT);
 
         drawValue(dc, W / 2.4, H / 4, title, selected == 0, Graphics.FONT_MEDIUM);
         drawValue(dc, W / 2.4, H / 4 + hs, EX_INPUT_S[input], selected == 1, Graphics.FONT_MEDIUM);
-        drawValue(dc, W / 2.4, H / 4 + hs * 2, gap + "m", selected == 2, Graphics.FONT_MEDIUM);
+        drawValue(dc, W / 2.4, H / 4 + hs * 2, manual ? "Manual" : gap + "m", selected == 2, Graphics.FONT_MEDIUM);
 
-        drawValue(dc, W / 2.4, H / 4 + hs * 3, startH.format("%02d"), selected == 3, Graphics.FONT_MEDIUM);
-        drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00", Graphics.FONT_MEDIUM), H / 4 + hs * 3, "-", false, Graphics.FONT_MEDIUM);
-        drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-", Graphics.FONT_MEDIUM), H / 4 + hs * 3, endH.format("%02d"), selected == 4, Graphics.FONT_MEDIUM);
-        drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-00 ", Graphics.FONT_MEDIUM), H / 4 + hs * 3, EX_DAYS_S[days], selected == 5, Graphics.FONT_MEDIUM);
+        if (!manual) {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(W / 2.7, H / 4 + hs * 3, Graphics.FONT_MEDIUM, "Hours:", Graphics.TEXT_JUSTIFY_RIGHT);
+
+            drawValue(dc, W / 2.4, H / 4 + hs * 3, startH.format("%02d"), selected == 3, Graphics.FONT_MEDIUM);
+            drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00", Graphics.FONT_MEDIUM), H / 4 + hs * 3, "-", false, Graphics.FONT_MEDIUM);
+            drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-", Graphics.FONT_MEDIUM), H / 4 + hs * 3, endH.format("%02d"), selected == 4, Graphics.FONT_MEDIUM);
+            drawValue(dc, W / 2.4 + dc.getTextWidthInPixels("00-00 ", Graphics.FONT_MEDIUM), H / 4 + hs * 3, EX_DAYS_S[days], selected == 5, Graphics.FONT_MEDIUM);
+        }
 
         drawValue(dc, W / 2.65, H * 0.82, "SAVE", selected == 6, Graphics.FONT_SMALL);
     }

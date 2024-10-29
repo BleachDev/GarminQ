@@ -3,14 +3,16 @@ import Toybox.WatchUi;
 
 class AddDelegate extends BehaviorDelegate {
 
-    private static var GAP_OPTIONS as Array<Number> = [ 10, 20, 30, 45, 60, 90, 120, 180, 300, 1440 ];
+    private static var GAP_OPTIONS as Array<Number> = [ 10, 20, 30, 45, 60, 90, 120, 180, 300, 1440, 2147483647 ];
 
     function initialize() {
         BehaviorDelegate.initialize();
     }
 
     function onNextPage() as Boolean {
-        if (AddView.selected < 6) {
+        if (AddView.gap == 2147483647 && AddView.selected == 2) {
+            AddView.selected = 6;
+        } else if (AddView.selected < 6) {
             AddView.selected++;
         }
 
@@ -19,7 +21,9 @@ class AddDelegate extends BehaviorDelegate {
     }
 
     function onPreviousPage() as Boolean {
-        if (AddView.selected > 0) {
+        if (AddView.gap == 2147483647 && AddView.selected == 6) {
+            AddView.selected = 2;
+        } else if (AddView.selected > 0) {
             AddView.selected--;
         }
 
