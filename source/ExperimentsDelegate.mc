@@ -127,7 +127,8 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
             WatchUi.pushView(new OptionsView(), new OptionsDelegate(), WatchUi.SLIDE_LEFT);
         } else if (item == :export) {
             System.println("Begin Export");
-            Communications.makeWebRequest("https://api.bleach.dev/file", {"data" => data.experiments},
+            Communications.makeWebRequest("https://api.bleach.dev/file",
+                                          {"data" => data.experiments, "deviceId" => System.getDeviceSettings().uniqueIdentifier},
                 { :method => Communications.HTTP_REQUEST_METHOD_POST,
                   :headers => {"Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON} }, method(:onExport));
         }
@@ -135,17 +136,19 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
 
     function onExport(responseCode as Number, data as Dictionary?) as Void {
         System.println("Finish Export " + responseCode + " " + data);
-        WatchUi.pushView(new ExportResultsView(data), new BehaviorDelegate(), WatchUi.SLIDE_BLINK);
+        WatchUi.pushView(new ExportResultsView(data, responseCode), new BehaviorDelegate(), WatchUi.SLIDE_BLINK);
     }
 }
 
 class ExportResultsView extends WatchUi.View {
 
-    private var data;
+    private var response;
+    private var code;
 
-    function initialize(data) {
+    function initialize(response, code) {
         View.initialize();
-        self.data = data;
+        self.response = response;
+        self.code = code;
     }
 
     function onUpdate(dc) {
@@ -153,6 +156,6 @@ class ExportResultsView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         drawHeader(dc, dc.getWidth(), dc.getHeight(), "EXPORT");
         dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_TINY,
-                    data == null ? "ERROR\nOut of Memory?\nTry purging recs." : "https://\napi.bleach.dev/\nfile?id=" + data["id"], Graphics.TEXT_JUSTIFY_CENTER);
+                    response == null ? "ERROR " + code + "\nOut of Memory?\nTry purging recs." : "https://\napi.bleach.dev/\nfile?id=" + response["id"], Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
