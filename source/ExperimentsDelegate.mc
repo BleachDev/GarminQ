@@ -127,33 +127,7 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
             WatchUi.pushView(new OptionsView(), new OptionsDelegate(), WatchUi.SLIDE_LEFT);
         } else if (item == :export) {
             System.println("Begin Export");
-            var export = {};
-            for (var i = 0; i < data.experiments.size(); i++) {
-                var ex = data.experiments[i];
-                export[ex[EX_NAME]] = {
-                    "title" => ex[EX_NAME],
-                    "input" => EX_INPUT_S[ex[EX_INPUT]],
-                    "gap" => ex[EX_GAP],
-                    "startHour" => ex[EX_START_H],
-                    "endHour" => ex[EX_END_H],
-                    "days" => ex[EX_DAYS],
-                    "records" => []
-                };
-
-                for (var r = 0; r < ex[EX_RECORDS].size(); r++) {
-                    var re = ex[EX_RECORDS][r];
-                    export[ex[EX_NAME]]["records"].add({
-                        "time" => re[RE_TIME],
-                        "value" => re[RE_VALUE],
-                        "activity" => re[RE_ACTIVITY],
-                        "heartrate" => re[RE_HR],
-                        "bodybattery" => re[RE_BATTERY],
-                        "stress" => re[RE_STRESS]
-                    });
-                }
-            }
-
-            Communications.makeWebRequest("https://api.bleach.dev/file", export,
+            Communications.makeWebRequest("https://api.bleach.dev/file", {"data" => data.experiments},
                 { :method => Communications.HTTP_REQUEST_METHOD_POST,
                   :headers => {"Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON} }, method(:onExport));
         }
@@ -161,25 +135,24 @@ class ExperimentsAddDelegate extends MenuInputDelegate {
 
     function onExport(responseCode as Number, data as Dictionary?) as Void {
         System.println("Finish Export " + responseCode + " " + data);
-        if (responseCode == 200 && data != null) {
-            WatchUi.pushView(new ExportResultsView(data["id"]), new BehaviorDelegate(), WatchUi.SLIDE_BLINK);
-        }
+        WatchUi.pushView(new ExportResultsView(data), new BehaviorDelegate(), WatchUi.SLIDE_BLINK);
     }
 }
 
 class ExportResultsView extends WatchUi.View {
 
-    private var id;
+    private var data;
 
-    function initialize(id) {
+    function initialize(data) {
         View.initialize();
-        self.id = id;
+        self.data = data;
     }
 
     function onUpdate(dc) {
         View.onUpdate(dc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         drawHeader(dc, dc.getWidth(), dc.getHeight(), "EXPORT");
-        dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_TINY, "https://\napi.bleach.dev/\nfile?id=" + id, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_TINY,
+                    data == null ? "ERROR\nOut of Memory?\nTry purging recs." : "https://\napi.bleach.dev/\nfile?id=" + data["id"], Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
