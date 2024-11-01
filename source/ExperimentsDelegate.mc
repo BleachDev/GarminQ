@@ -156,6 +156,6 @@ class ExportResultsView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         drawHeader(dc, dc.getWidth(), dc.getHeight(), "EXPORT");
         dc.drawText(dc.getWidth() / 2, dc.getHeight() / 3, Graphics.FONT_TINY,
-                    response == null ? "ERROR " + code + "\nOut of Memory?\nTry purging recs." : "https://\napi.bleach.dev/\nfile?id=" + response["id"], Graphics.TEXT_JUSTIFY_CENTER);
+                    response == null ? "ERROR " + code + "\nOut of Memory?\nTry purging recs." : "https://\napi.bleach.dev/view?id=" + response["id"], Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
