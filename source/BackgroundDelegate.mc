@@ -32,7 +32,7 @@ class BackgroundDelegate extends ServiceDelegate {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         // Georgian day_of_week: (Sun = 1, Mon = 2, Tue = 3..)
         // Our day_of_week: (Mon = 0, Tue = 1, Wed = 2..)
-        var day_of_week = info.day_of_week == 0 ? 6 : info.day_of_week - 2;
+        var day_of_week = info.day_of_week == 1 ? 6 : info.day_of_week - 2;
 
         // In minutes
         var curDelta = (now - bgEx[EX_BG_LAST_TRIGGER]) / 60;
