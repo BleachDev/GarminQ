@@ -9,7 +9,7 @@ class OptionsDelegate extends BehaviorDelegate {
     }
 
     function onNextPage() as Boolean {
-        if (OptionsView.selected < 1) {
+        if (OptionsView.selected < 2) {
             OptionsView.selected++;
         }
 
@@ -31,6 +31,10 @@ class OptionsDelegate extends BehaviorDelegate {
             // Change Stat Mode
             data.statsMode = (data.statsMode + 1) % 3;
             Storage.setValue("statsMode", data.statsMode);
+        } else if (OptionsView.selected == 1) {
+            // Change Trigger In Activity
+            data.triggerInActivity = !data.triggerInActivity;
+            Storage.setValue("inActivity", data.triggerInActivity);
         } else {
             // Save
             WatchUi.popView(WatchUi.SLIDE_RIGHT);

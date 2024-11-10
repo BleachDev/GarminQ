@@ -53,6 +53,8 @@ class Data {
     public var bgExperiments as Array<BgExperiment> = [];
 
     public var statsMode as Number = 0;
+    (:background)
+    public var triggerInActivity as Boolean = false;
 
     function load() {
         if (Storage.getValue("experiments") != null) {
@@ -71,12 +73,18 @@ class Data {
         if (Storage.getValue("statsMode") != null) {
             statsMode = Storage.getValue("statsMode");
         }
+        if (Storage.getValue("inActivity") != null) {
+            triggerInActivity = Storage.getValue("inActivity");
+        }
     }
 
     (:background)
     function loadBg() {
         if (Storage.getValue("bgExperiments") != null) {
             bgExperiments = Storage.getValue("bgExperiments") as Array<[String, Number, Number, Number, Number, Number, Number]>;
+        }
+        if (Storage.getValue("inActivity") != null) {
+            triggerInActivity = Storage.getValue("inActivity");
         }
     }
 

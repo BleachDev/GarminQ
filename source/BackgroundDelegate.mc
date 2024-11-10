@@ -54,6 +54,11 @@ class BackgroundDelegate extends ServiceDelegate {
             }
         }
 
+        // Snooze if we're in an activity
+        if (!data.triggerInActivity && snoozeDelta == 0 && Activity.getActivityInfo() != null && Activity.getActivityInfo().startTime != null) {
+            snoozeDelta += 5;
+        }
+
         return (curDelta > neededDelta ? 0 : neededDelta) + snoozeDelta;
     }
 
