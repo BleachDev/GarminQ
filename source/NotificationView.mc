@@ -27,7 +27,7 @@ class NotificationView extends View {
 
         drawHeader(dc, W, H, ex[EX_NAME]);
 
-        var count = EX_INPUT_V[ex[EX_INPUT]];
+        var count = ex[EX_INPUT].size();
         var countf = count - 1.0;
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(W / 8 - W / 40, H / 2 - H / 60, W - W / 4 + W / 20, H / 30, W / 60);
@@ -38,7 +38,7 @@ class NotificationView extends View {
         for (var i = 0; i < count; i++) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             dc.drawText(W / 8 + (W - W / 4) * (i / countf), H / 2 + H / 30, Graphics.FONT_SMALL,
-                        count == 2 ? (i == 0 ? "No" : "Yes") : i + 1, Graphics.TEXT_JUSTIFY_CENTER);
+                        ex[EX_INPUT][i], Graphics.TEXT_JUSTIFY_CENTER);
 
             dc.setColor(INSTINCT_MODE ? Graphics.COLOR_BLACK : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(W / 8 + (W - W / 4) * (i / countf), H / 2 - H / 60, W / 60, H / 30);

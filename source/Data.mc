@@ -4,8 +4,8 @@ import Toybox.Time;
 
 // object oriented programming? data structures? whats that?
 // surely this won't have scalability issues..
-typedef Experiment as [String, Number, Number, Number, Number, Number, Array<Record>];
-typedef BgExperiment as [String, Number, Number, Number, Number, Number, Number];
+typedef Experiment as [String, Array, Number, Number, Number, Number, Array<Record>];
+typedef BgExperiment as [String, Array, Number, Number, Number, Number, Number];
 typedef Record as [Number, Number, String, Number, Number, Number];
 
 var EX_NAME = 0;
@@ -17,9 +17,8 @@ var EX_DAYS = 5;
 var EX_RECORDS = 6;
 var EX_BG_LAST_TRIGGER = 6;
 
-var EX_INPUT_S as Array<String> = [ "1-5", "1-10", "Y/N" ];
-var EX_INPUT_V as Array<Number> = [ 5, 10, 2 ];
-var EX_DAYS_S as Array<String> = [ "All", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "M-F", "S-S" ];
+var EX_INPUT_V as Array<Array> = [ [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ["No", "Yes"] ];
+var EX_DAYS_S as Array<String> = [ "All Days", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon-Fri", "Sat-Sun" ];
 
 var RE_TIME = 0;
 var RE_VALUE = 1;
@@ -32,7 +31,7 @@ class Data {
     // experiments = [
     //   Experiment [
     //     Name
-    //     Input
+    //     Input []
     //     Gap
     //     StartHour
     //     EndHour
@@ -60,13 +59,18 @@ class Data {
         if (Storage.getValue("experiments") != null) {
             experiments = Storage.getValue("experiments") as Array<Experiment>;
 
-            // Fix for when updating, if we don't have all stats on all records, fill with null
             for (var i = 0; i < experiments.size(); i++) {
+                // Fix for updating to 1.2, if we don't have all stats on all records, fill with null
                 var re = experiments[i][EX_RECORDS] as Array<Record>;
                 for (var r = 0; r < re.size(); r++) {
                     while (re[r].size() < 6) {
                         re[r].add(null);
                     }
+                }
+
+                // Fix for updating to 1.3, if "input" is a number, convert to array
+                if (experiments[i][EX_INPUT] instanceof Number) {
+                    experiments[i][EX_INPUT] = EX_INPUT_V[experiments[i][EX_INPUT]];
                 }
             }
         }
@@ -81,7 +85,7 @@ class Data {
     (:background)
     function loadBg() {
         if (Storage.getValue("bgExperiments") != null) {
-            bgExperiments = Storage.getValue("bgExperiments") as Array<[String, Number, Number, Number, Number, Number, Number]>;
+            bgExperiments = Storage.getValue("bgExperiments") as Array;
         }
         if (Storage.getValue("inActivity") != null) {
             triggerInActivity = Storage.getValue("inActivity");

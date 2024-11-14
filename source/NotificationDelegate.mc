@@ -12,7 +12,7 @@ class NotificationDelegate extends BehaviorDelegate {
 
     function onPreviousPage() as Boolean {
         NotificationView.done = false;
-        if (NotificationView.value < EX_INPUT_V[NotificationView.ex[EX_INPUT]] - 1) {
+        if (NotificationView.value < NotificationView.ex[EX_INPUT].size() - 1) {
             NotificationView.value++;
         }
 

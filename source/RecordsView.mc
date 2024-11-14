@@ -47,8 +47,7 @@ class RecordsView extends View {
             var time = Time.Gregorian.info(new Moment(re[RE_TIME]), Time.FORMAT_MEDIUM);
             dc.drawText(W / 10, h, Graphics.FONT_TINY, time.month + " " + time.day + " " + time.year, Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(W / 9, h + TINY_H, Graphics.FONT_XTINY, time.hour.format("%02d") + ":" + time.min.format("%02d") + ":" + time.sec.format("%02d"), Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(W - W / 10, h, Graphics.FONT_TINY,
-                        ex[EX_INPUT] == 2 ? (re[RE_VALUE] == 0 ? "No" : "Yes") : re[RE_VALUE] + 1, Graphics.TEXT_JUSTIFY_RIGHT);
+            dc.drawText(W - W / 10, h, Graphics.FONT_TINY, ex[EX_INPUT][re[RE_VALUE]], Graphics.TEXT_JUSTIFY_RIGHT);
         }
     }
 }

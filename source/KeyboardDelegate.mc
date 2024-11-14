@@ -3,8 +3,11 @@ import Toybox.WatchUi;
 
 class KeyboardDelegate extends BehaviorDelegate {
 
-    function initialize() {
+    private var callback;
+
+    function initialize(callback) {
         BehaviorDelegate.initialize();
+        self.callback = callback;
     }
 
     function onPreviousPage() as Boolean {
@@ -29,7 +32,7 @@ class KeyboardDelegate extends BehaviorDelegate {
                 KeyboardView.string = KeyboardView.string.substring(0, KeyboardView.string.length() - 1);
             }
         } else if (KeyboardView.selected == 28) {
-            AddView.title = KeyboardView.string;
+            callback.invoke(KeyboardView.string);
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
         } else {
             KeyboardView.string += KeyboardView.chr(KeyboardView.selected);
