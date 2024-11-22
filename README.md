@@ -2,12 +2,13 @@
 
 [![Get on Connect-IQ Store](https://img.shields.io/badge/Get_on-Connect--IQ_Store-blue?style=for-the-badge)](https://apps.garmin.com/apps/b4a4c26b-3b55-41d5-a760-978704c1b263)
 
-GarminQ is an [Experience sampling Method](https://en.wikipedia.org/wiki/Experience_sampling_method) app for Garmin watches, which lets you create simple questions (experiments) which triggers throughout the day or over longer periods of time and logs your responses.  
+GarminQ is a Daily Diary / [Experience sampling Method](https://en.wikipedia.org/wiki/Experience_sampling_method) app for Garmin watches, which lets you create simple questions (experiments) which periodically triggers throughout the day or over longer periods of time and logs your responses.
 
-By recording your responses in real-time, GarminQ can provide invaluable insights into your behavioral patterns, mood fluctuation and daily experiences.
+By recording your responses in real-time, GarminQ can provide invaluable insights into your behavioral patterns, mood fluctuation and daily habits/experiences.
 
-Data can be easily exported from your watch to any device to be used for visualizing, data analysis or anything else! Additional data such as Current Activity, Heart Rate and Body Battery is also attached to your responses which gives even more insight into your data.
+Data can be easily exported from your watch to the cloud with just 1 click, and once uploaded you can visualize, download and manage all your exports via a web interface! Additional data such as Current Activity, Heart Rate, Body Battery and Stress is also attached to your responses which gives even more insight into your data.
 
+GarminQ has been designed and tested to work on almost all Garmin devices, including Instinct watches.
 
 Want to know more about how it works?   
 Then take a look at [TagTime](https://tagtime.com), [Tagtime Web](https://ttw.smitop.com/), [Cactus Sampling Profiler](https://getcactus.app/), [Beeminder](https://www.beeminder.com/)
@@ -17,7 +18,9 @@ Then take a look at [TagTime](https://tagtime.com), [Tagtime Web](https://ttw.sm
 
 ## Images
 
-<img src="https://i.imgur.com/V68CmyT.png" height=300>
+<img src="https://services.garmin.com/appsLibraryExternalServices/api/screenshots/66ece243-c3d2-4ae9-ad93-7fcfd063f6d0" height=250>
+<img src="https://services.garmin.com/appsLibraryExternalServices/api/screenshots/66ece243-c3d2-4ae9-ad93-7fcfd063f6d0" height=250>
+<img src="https://services.garmin.com/appsLibraryExternalServices/api/screenshots/4c917bd5-4306-4dd1-b48f-d76792da2515" height=250>
 
 ## Contributing
 
