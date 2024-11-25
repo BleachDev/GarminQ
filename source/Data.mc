@@ -53,7 +53,9 @@ class Data {
 
     public var statsMode as Number = 0;
     (:background)
-    public var triggerInActivity as Boolean = false;
+    public var inActivity as Boolean = false;
+    (:background)
+    public var distMode as Number = 0;
 
     function load() {
         if (Storage.getValue("experiments") != null) {
@@ -74,11 +76,14 @@ class Data {
                 }
             }
         }
-        if (Storage.getValue("statsMode") != null) {
-            statsMode = Storage.getValue("statsMode");
+        if (Properties.getValue("statsMode") != null) {
+            statsMode = Properties.getValue("statsMode");
         }
-        if (Storage.getValue("inActivity") != null) {
-            triggerInActivity = Storage.getValue("inActivity");
+        if (Properties.getValue("inActivity") != null) {
+            inActivity = Properties.getValue("inActivity");
+        }
+        if (Properties.getValue("distMode") != null) {
+            distMode = Properties.getValue("distMode");
         }
     }
 
@@ -87,8 +92,11 @@ class Data {
         if (Storage.getValue("bgExperiments") != null) {
             bgExperiments = Storage.getValue("bgExperiments") as Array;
         }
-        if (Storage.getValue("inActivity") != null) {
-            triggerInActivity = Storage.getValue("inActivity");
+        if (Properties.getValue("inActivity") != null) {
+            inActivity = Properties.getValue("inActivity");
+        }
+        if (Properties.getValue("distMode") != null) {
+            distMode = Properties.getValue("distMode");
         }
     }
 

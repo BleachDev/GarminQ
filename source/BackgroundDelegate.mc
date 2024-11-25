@@ -36,7 +36,9 @@ class BackgroundDelegate extends ServiceDelegate {
 
         // In minutes
         var curDelta = (now - bgEx[EX_BG_LAST_TRIGGER]) / 60;
-        var neededDelta = expoVariate(bgEx[EX_BG_LAST_TRIGGER], 1.0 / bgEx[EX_GAP]);
+        var neededDelta = data.distMode == 0
+                            ? normalVariate(bgEx[EX_BG_LAST_TRIGGER], bgEx[EX_GAP], bgEx[EX_GAP] / 5)
+                            : expoVariate(bgEx[EX_BG_LAST_TRIGGER], 1.0 / bgEx[EX_GAP]);
         var snoozeDelta = 0;
 
         // Add hour + minutes to snooze if we're outside the selected hours
@@ -55,17 +57,17 @@ class BackgroundDelegate extends ServiceDelegate {
         }
 
         // Snooze if we're in an activity
-        if (!data.triggerInActivity && snoozeDelta == 0 && Activity.getActivityInfo() != null && Activity.getActivityInfo().startTime != null) {
+        if (!data.inActivity && snoozeDelta == 0 && Activity.getActivityInfo() != null && Activity.getActivityInfo().startTime != null) {
             snoozeDelta += 5;
         }
 
+        // System.println(curDelta + " / " + neededDelta);
         return (curDelta > neededDelta ? 0 : neededDelta) + snoozeDelta;
     }
 
     // From: https://github.com/python/cpython/blob/85af78996117dbe8ad45716633a3d6c39ff7bab2/Lib/random.py#L534
     // mu = Mean, sigma = Standard Deviation
-    /*
-    private static var NV_MAGICCONST = 1.71552776992;
+    private static var NV_MAGICCONST as Float = 1.71552776992;
     function normalVariate(seed, mu, sigma) {
         while (true) {
             var u1 = mulberry32(seed);
@@ -77,7 +79,7 @@ class BackgroundDelegate extends ServiceDelegate {
             }
         }
         return null; // Invalid Path, should always return from the while(true) block
-    }*/
+    }
 
     // From: https://github.com/python/cpython/blob/85af78996117dbe8ad45716633a3d6c39ff7bab2/Lib/random.py#L603
     function expoVariate(seed, lambda) {
